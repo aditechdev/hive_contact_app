@@ -39,8 +39,24 @@ class _ContactPageState extends State<ContactPage> {
           itemBuilder: (context, index) {
             final contact = box.get(index) as Contact;
             return ListTile(
-              title: Text(contact.name),
+              title:  Text(contact.name),
               subtitle: Text(contact.age.toString()),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        box.putAt(
+                            index, Contact("${contact.name}*", contact.age));
+                      },
+                      icon: const Icon(Icons.refresh)),
+                  IconButton(
+                      onPressed: () {
+                        box.deleteAt(index);
+                      },
+                      icon: const Icon(Icons.delete))
+                ],
+              ),
             );
           },
         );

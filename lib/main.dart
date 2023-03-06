@@ -24,6 +24,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
+    Hive.box("contact").compact();
     Hive.close();
     super.dispose();
   }
