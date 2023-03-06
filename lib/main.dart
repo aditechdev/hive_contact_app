@@ -37,7 +37,10 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
       ),
       home: FutureBuilder(
-          future: Hive.openBox("contact"),
+          future: Hive.openBox("contact",
+              compactionStrategy: (int total, int deleted) {
+            return deleted > 20;
+          }),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasError) {
