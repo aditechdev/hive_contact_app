@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_contact_app/model/contact.dart';
 import 'package:hive_contact_app/new_conntact_form.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
@@ -28,16 +28,21 @@ class _ContactPageState extends State<ContactPage> {
     );
   }
 
-  ListView _buildListView() {
-    final contactBox = Hive.box("contact");
+  Widget _buildListView() {
+    // final contactBox = Hive.box("contact");
 
-    return ListView.builder(
-      itemCount: contactBox.length,
-      itemBuilder: (context, index) {
-        final contact = contactBox.get(index) as Contact;
-        return ListTile(
-          title: Text(contact.name),
-          subtitle: Text(contact.age.toString()),
+    return ValueListenableBuilder(
+      valueListenable: Hive.box("contact").listenable(),
+      builder: (context, box, snapshot) {
+        return ListView.builder(
+          itemCount: box.values.length,
+          itemBuilder: (context, index) {
+            final contact = box.get(index) as Contact;
+            return ListTile(
+              title: Text(contact.name),
+              subtitle: Text(contact.age.toString()),
+            );
+          },
         );
       },
     );
