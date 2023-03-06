@@ -40,17 +40,6 @@ class _ContactPageState extends State<ContactPage> {
           subtitle: Text(contact.age.toString()),
         );
       },
-      // children: const [
-
-      // ],
     );
-    // return Row(
-    //   children: const [Text("Name"), Text("Age")],
-    // );
-
-    // ListView(
-
-    //   //  ListTile()
-    // );
   }
 }
